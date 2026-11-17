@@ -38,7 +38,7 @@
       flex-shrink: 0; 
     }
 
-    /* 駅選択枠（残りの幅をフル使用・見切れ防止【追加】） */
+    /* 駅選択枠（残りの幅をフル使用・見切れ防止） */
     #selCollectorStation {
       flex: 1;
       min-width: 0;
@@ -51,12 +51,12 @@
     .cl-table { width: 100%; border-collapse: collapse; table-layout: fixed; background: #fff; border: 2px solid #000; }
     .cl-table td, .cl-table th { border: 1px solid #000; height: 32px; text-align: center; vertical-align: middle; padding: 0 2px; }
 
-    /* カテゴリー別ヘッダーカラー（画像ベース） */
+    /* カテゴリー別ヘッダーカラー */
     .hdr-sky    { background-color: #00b0f0; color: #000; font-weight: bold; font-size: 12px; } /* 駅名 */
-    .hdr-brown  { background-color: #c65911; color: #fff; font-weight: bold; font-size: 12px; } /* 食事関連 (内食堂・内コート・内軽食・食売り・外食堂・外屋台) */
-    .hdr-green  { background-color: #00b050; color: #fff; font-weight: bold; font-size: 12px; } /* 物販関連 (物売り・内売店・外売店) */
-    .hdr-purple { background-color: #7030a0; color: #fff; font-weight: bold; font-size: 12px; } /* 評価関連 (情報提供・ゆっくり・高齢子供・長時間・再度訪問・トイレ・冬訪問) */
-    .hdr-blue   { background-color: #0070c0; color: #fff; font-weight: bold; font-size: 12px; } /* その他インフラ (Wi-Fi・温泉・ホテル・公園・PG・DOG・その他) */
+    .hdr-brown  { background-color: #c65911; color: #fff; font-weight: bold; font-size: 12px; } /* 食事関連 */
+    .hdr-green  { background-color: #00b050; color: #fff; font-weight: bold; font-size: 12px; } /* 物販関連 */
+    .hdr-purple { background-color: #7030a0; color: #fff; font-weight: bold; font-size: 12px; } /* 評価関連 */
+    .hdr-blue   { background-color: #0070c0; color: #fff; font-weight: bold; font-size: 12px; } /* その他インフラ */
     .hdr-cyan   { background-color: #00e6e6; color: #000; font-weight: bold; font-size: 11px; } /* CC・QR */
     .hdr-orange { background-color: #ff8c00; color: #fff; font-weight: bold; font-size: 13px; } /* 写真エリアヘッダー */
     .hdr-yellow { background-color: #fff2cc; color: #000; font-weight: bold; font-size: 11px; } /* 写真各項目ラベル */
@@ -82,7 +82,7 @@
   <div class="container">
     <h1>道の駅収集 データ入力</h1>
 
-    <!-- 修正後：対象の選択ラベルを削除 -->
+    <!-- 収集対象の選択ヘッダー -->
     <div class="station-select-bar">
       <select id="selCollectorArea" onchange="updateStationDropdown()">
         <option value="">エリア選択</option>
@@ -117,132 +117,172 @@
         </td>
       </tr>
 
-      <!-- 2行目：内食堂 -->
+      <!-- 2行目：内総合 -->
       <tr>
-        <th class="hdr-brown">内食堂</th>
-        <td colspan="3" class="rule-1"><select class="cell-input" id="c_inside_restaurant"></select></td>
+        <th class="hdr-brown">内総合</th>
+        <td colspan="2" class="rule-1"><select class="cell-input" id="c_in_general"></select></td>
         <th class="hdr-cyan">CC</th>
-        <td colspan="3" class="rule-3"><select class="cell-input" id="c_inside_restaurant_cc"></select></td>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_in_general_cc"></select></td>
         <th class="hdr-cyan">QR</th>
-        <td colspan="3" class="rule-3"><select class="cell-input" id="c_inside_restaurant_qr"></select></td>
-      </tr>
-
-      <!-- 3行目：内コート -->
-      <tr>
-        <th class="hdr-brown">内コート</th>
-        <td colspan="3" class="rule-1"><select class="cell-input" id="c_food_court"></select></td>
-        <th class="hdr-cyan">CC</th>
-        <td colspan="3" class="rule-3"><select class="cell-input" id="c_food_court_cc"></select></td>
-        <th class="hdr-cyan">QR</th>
-        <td colspan="3" class="rule-3"><select class="cell-input" id="c_food_court_qr"></select></td>
-      </tr>
-
-      <!-- 4行目：内軽食 -->
-      <tr>
-        <th class="hdr-brown">内軽食</th>
-        <td colspan="3" class="rule-1"><select class="cell-input" id="c_inside_snack"></select></td>
-        <th class="hdr-cyan">CC</th>
-        <td colspan="3" class="rule-3"><select class="cell-input" id="c_inside_snack_cc"></select></td>
-        <th class="hdr-cyan">QR</th>
-        <td colspan="3" class="rule-3"><select class="cell-input" id="c_inside_snack_qr"></select></td>
-      </tr>
-
-      <!-- 5行目：食売り -->
-      <tr>
-        <th class="hdr-brown">食売り</th>
-        <td colspan="11" class="rule-2"><input type="text" class="cell-input" id="c_food_seller" placeholder="自由入力"></td>
-      </tr>
-
-      <!-- 6行目：外食堂 & 外屋台 & ソフト -->
-      <tr>
-        <th class="hdr-brown">外食堂</th>
-        <td colspan="3" class="rule-1"><select class="cell-input" id="c_outside_restaurant"></select></td>
-        <th colspan="2" class="hdr-brown">外屋台</th>
-        <td colspan="2" class="rule-1"><select class="cell-input" id="c_outside_stall"></select></td>
-        <th colspan="2" class="hdr-brown">ソフト</th>
-        <td colspan="2" class="rule-2"><input type="text" class="cell-input" id="c_soft_serve" placeholder="自由入力"></td>
-      </tr>
-
-      <!-- 7行目：内売店 & 物産店 -->
-      <tr>
-        <th class="hdr-green">内売店</th>
-        <td colspan="3" class="rule-1"><select class="cell-input" id="c_inside_shop"></select></td>
-        <th class="hdr-cyan">CC</th>
-        <td colspan="3" class="rule-3"><select class="cell-input" id="c_inside_shop_cc"></select></td>
-        <th class="hdr-cyan">QR</th>
-        <td colspan="3" class="rule-3"><select class="cell-input" id="c_inside_shop_qr"></select></td>
-      </tr>
-
-      <!-- 8行目：外売店 & 物産店 -->
-      <tr>
-        <th class="hdr-green">外売店</th>
-        <td colspan="3" class="rule-1"><select class="cell-input" id="c_outside_shop"></select></td>
-        <th colspan="2" class="hdr-green">物産店</th>
-        <td colspan="3" class="rule-7"><select class="cell-input" id="c_local_products"></select></td>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_in_general_qr"></select></td>
         <td colspan="3" class="gray-cell"></td>
       </tr>
 
-      <!-- 9行目：物売り -->
+      <!-- 3行目：内軽食 -->
+      <tr>
+        <th class="hdr-brown">内軽食</th>
+        <td colspan="2" class="rule-1"><select class="cell-input" id="c_in_snack"></select></td>
+        <th class="hdr-cyan">CC</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_in_snack_cc"></select></td>
+        <th class="hdr-cyan">QR</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_in_snack_qr"></select></td>
+        <td colspan="3" class="gray-cell"></td>
+      </tr>
+
+      <!-- 4行目：内サイド -->
+      <tr>
+        <th class="hdr-brown">内サイド</th>
+        <td colspan="2" class="rule-1"><select class="cell-input" id="c_in_side"></select></td>
+        <th class="hdr-cyan">CC</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_in_side_cc"></select></td>
+        <th class="hdr-cyan">QR</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_in_side_qr"></select></td>
+        <td colspan="3" class="gray-cell"></td>
+      </tr>
+
+      <!-- 5行目：食売り & ソフト -->
+      <tr>
+        <th class="hdr-brown">食売り</th>
+        <td colspan="6" class="rule-2"><input type="text" class="cell-input" id="c_food_seller" placeholder="自由入力"></td>
+        <th colspan="2" class="hdr-brown">ソフト</th>
+        <td colspan="3" class="rule-2"><input type="text" class="cell-input" id="c_soft_serve" placeholder="自由入力"></td>
+      </tr>
+
+      <!-- 6行目：外総合 -->
+      <tr>
+        <th class="hdr-brown">外総合</th>
+        <td colspan="2" class="rule-1"><select class="cell-input" id="c_out_general"></select></td>
+        <th class="hdr-cyan">CC</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_out_general_cc"></select></td>
+        <th class="hdr-cyan">QR</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_out_general_qr"></select></td>
+        <td colspan="3" class="gray-cell"></td>
+      </tr>
+
+      <!-- 7行目：外軽食 -->
+      <tr>
+        <th class="hdr-brown">外軽食</th>
+        <td colspan="2" class="rule-1"><select class="cell-input" id="c_out_snack"></select></td>
+        <th class="hdr-cyan">CC</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_out_snack_cc"></select></td>
+        <th class="hdr-cyan">QR</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_out_snack_qr"></select></td>
+        <td colspan="3" class="gray-cell"></td>
+      </tr>
+
+      <!-- 8行目：外サイド -->
+      <tr>
+        <th class="hdr-brown">外サイド</th>
+        <td colspan="2" class="rule-1"><select class="cell-input" id="c_out_side"></select></td>
+        <th class="hdr-cyan">CC</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_out_side_cc"></select></td>
+        <th class="hdr-cyan">QR</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_out_side_qr"></select></td>
+        <td colspan="3" class="gray-cell"></td>
+      </tr>
+
+      <!-- 9行目：食事その他（自由入力 & CC & QR） -->
+      <tr>
+        <th class="hdr-brown">その他</th>
+        <td colspan="5" class="rule-2"><input type="text" class="cell-input" id="c_meal_other_txt" placeholder="自由入力"></td>
+        <th class="hdr-cyan">CC</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_meal_other_cc"></select></td>
+        <th class="hdr-cyan">QR</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_meal_other_qr"></select></td>
+      </tr>
+
+      <!-- 10行目：内売店 -->
+      <tr>
+        <th class="hdr-green">内売店</th>
+        <td colspan="2" class="rule-1"><select class="cell-input" id="c_inside_shop"></select></td>
+        <th class="hdr-cyan">CC</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_inside_shop_cc"></select></td>
+        <th class="hdr-cyan">QR</th>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_inside_shop_qr"></select></td>
+        <td colspan="3" class="gray-cell"></td>
+      </tr>
+
+      <!-- 11行目：外売店 & 物産店 -->
+      <tr>
+        <th class="hdr-green">外売店</th>
+        <td colspan="2" class="rule-1"><select class="cell-input" id="c_outside_shop"></select></td>
+        <th colspan="2" class="hdr-green">物産店</th>
+        <td colspan="2" class="rule-7"><select class="cell-input" id="c_local_products"></select></td>
+        <td colspan="5" class="gray-cell"></td>
+      </tr>
+
+      <!-- 12行目：物売り -->
       <tr>
         <th class="hdr-green">物売り</th>
         <td colspan="11" class="rule-2"><input type="text" class="cell-input" id="c_shop_seller" placeholder="自由入力"></td>
       </tr>
 
-      <!-- 10行目：情報提供 & ゆっくり & 高齢子供 -->
+      <!-- 13行目：情報提供 & ゆっくり & 高齢子供 -->
       <tr>
         <th class="hdr-purple">情報提供</th>
-        <td colspan="3" class="rule-4"><select class="cell-input" id="c_info_desk"></select></td>
+        <td colspan="2" class="rule-4"><select class="cell-input" id="c_info_desk"></select></td>
         <th colspan="2" class="hdr-purple">ゆっくり</th>
         <td colspan="2" class="rule-4"><select class="cell-input" id="c_rest"></select></td>
         <th colspan="2" class="hdr-purple">高齢子供</th>
-        <td colspan="2" class="rule-4"><select class="cell-input" id="c_senior_kids"></select></td>
+        <td colspan="3" class="rule-4"><select class="cell-input" id="c_senior_kids"></select></td>
       </tr>
 
-      <!-- 11行目：長時間 & 再度訪問 & 冬訪問 -->
+      <!-- 14行目：長時間 & 再度訪問 & 冬訪問 -->
       <tr>
         <th class="hdr-purple">長時間</th>
-        <td colspan="3" class="rule-4"><select class="cell-input" id="c_long_stay"></select></td>
+        <td colspan="2" class="rule-4"><select class="cell-input" id="c_long_stay"></select></td>
         <th colspan="2" class="hdr-purple">再度訪問</th>
         <td colspan="2" class="rule-4"><select class="cell-input" id="c_revisit"></select></td>
         <th colspan="2" class="hdr-purple">冬訪問</th>
-        <td colspan="2" class="rule-4"><select class="cell-input" id="c_winter_visit"></select></td>
+        <td colspan="3" class="rule-4"><select class="cell-input" id="c_winter_visit"></select></td>
       </tr>
 
-      <!-- 12行目：トイレ & Wi-Fi -->
+      <!-- 15行目：トイレ & Wi-Fi -->
       <tr>
         <th class="hdr-purple">トイレ</th>
         <td colspan="2" class="rule-4"><select class="cell-input" id="c_toilet_clean"></select></td>
         <td colspan="2" class="rule-5"><select class="cell-input" id="c_toilet_pos"></select></td>
+        <td colspan="2" class="gray-cell"></td>
         <th colspan="2" class="hdr-blue">Wi-Fi</th>
-        <td colspan="5" class="rule-3"><select class="cell-input" id="c_wifi"></select></td>
+        <td colspan="3" class="rule-3"><select class="cell-input" id="c_wifi"></select></td>
       </tr>
 
-      <!-- 13行目：ホテル & 公園 & PG -->
+      <!-- 16行目：ホテル & 公園 & PG -->
       <tr>
         <th class="hdr-blue">ホテル</th>
-        <td colspan="3" class="rule-3"><select class="cell-input" id="c_hotel"></select></td>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_hotel"></select></td>
         <th colspan="2" class="hdr-blue">公園</th>
         <td colspan="2" class="rule-3"><select class="cell-input" id="c_park"></select></td>
         <th colspan="2" class="hdr-blue">PG</th>
-        <td colspan="2" class="rule-3"><select class="cell-input" id="c_park_golf"></select></td>
+        <td colspan="3" class="rule-3"><select class="cell-input" id="c_park_golf"></select></td>
       </tr>
 
-      <!-- 14行目：DOG & 温泉 -->
+      <!-- 17行目：DOG & 温泉 -->
       <tr>
         <th class="hdr-blue">DOG</th>
-        <td colspan="3" class="rule-3"><select class="cell-input" id="c_dog_run"></select></td>
+        <td colspan="2" class="rule-3"><select class="cell-input" id="c_dog_run"></select></td>
         <th colspan="2" class="hdr-blue">温泉</th>
-        <td colspan="6" class="rule-6"><select class="cell-input" id="c_hot_spring"></select></td>
+        <td colspan="7" class="rule-6"><select class="cell-input" id="c_hot_spring"></select></td>
       </tr>
 
-      <!-- 15行目：その他自由入力 -->
+      <!-- 18行目：その他自由入力 -->
       <tr>
         <th class="hdr-blue">その他</th>
         <td colspan="11" class="rule-2"><input type="text" class="cell-input" id="c_other" placeholder="自由入力"></td>
       </tr>
 
       <!-- 空白行 -->
-      <tr style="height:12px;"><td colspan="13" style="border:none; background:#f4f6f9;"></td></tr>
+      <tr style="height:12px;"><td colspan="12" style="border:none; background:#f4f6f9;"></td></tr>
 
       <!-- 写真エリアヘッダー -->
       <tr>
@@ -312,7 +352,7 @@
       <!-- 写真 6行目：自由入力 -->
       <tr>
         <th class="hdr-yellow">自由入力</th>
-        <td colspan="12" class="rule-2"><input type="text" class="cell-input" id="p_photo_free" placeholder="メモ等の自由入力"></td>
+        <td colspan="11" class="rule-2"><input type="text" class="cell-input" id="p_photo_free" placeholder="メモ等の自由入力"></td>
       </tr>
 
     </table>
@@ -333,7 +373,7 @@
     // ==========================================
     // パスワード設定（お好みのパスワードに変更してください）
     // ==========================================
-    const COLLECTOR_PASSWORD = "Tokachi0155"; // ← ここに入力したいパスワードを設定
+    const COLLECTOR_PASSWORD = "Tokachi2026"; // ← ここに入力したいパスワードを設定
 
     // パスワード認証関数
     function checkAuth() {
@@ -352,7 +392,7 @@
       }
     }
     
-    // リスト選択肢の設定 (入力規則①〜⑥)
+    // リスト選択肢の設定 (入力規則①〜⑦)
     const optionsMap = {
       'rule-1': ['', '0', '1', '2', '3', '4', '5', '6', '7'],
       'rule-3': ['', '〇', '×', '△', '－'],
@@ -461,32 +501,42 @@
       loadStationData(true);
     }
 
-    // 3. 69カラム完全準拠の fieldMap マッピング
+    // 3. fieldMap マッピング（新レイアウト対応）
     const fieldMap = {
-      // 食事（2〜4行目）
-      'c_inside_restaurant': st => st.meals?.inside_restaurant,
-      'c_inside_restaurant_cc': st => st.meals?.inside_restaurant_cc,
-      'c_inside_restaurant_qr': st => st.meals?.inside_restaurant_qr,
-      'c_food_court': st => st.meals?.food_court,
-      'c_food_court_cc': st => st.meals?.food_court_cc,
-      'c_food_court_qr': st => st.meals?.food_court_qr,
-      'c_inside_snack': st => st.meals?.inside_snack,
-      'c_inside_snack_cc': st => st.meals?.inside_snack_cc,
-      'c_inside_snack_qr': st => st.meals?.inside_snack_qr,
+      // 食事（2〜9行目）
+      'c_in_general': st => st.meals?.in_general,
+      'c_in_general_cc': st => st.meals?.in_general_cc,
+      'c_in_general_qr': st => st.meals?.in_general_qr,
+      'c_in_snack': st => st.meals?.in_snack,
+      'c_in_snack_cc': st => st.meals?.in_snack_cc,
+      'c_in_snack_qr': st => st.meals?.in_snack_qr,
+      'c_in_side': st => st.meals?.in_side,
+      'c_in_side_cc': st => st.meals?.in_side_cc,
+      'c_in_side_qr': st => st.meals?.in_side_qr,
       'c_food_seller': st => st.meals?.seller,
-      'c_outside_restaurant': st => st.meals?.outside_restaurant,
-      'c_outside_stall': st => st.meals?.outside_stall,
       'c_soft_serve': st => st.soft_serve,
+      'c_out_general': st => st.meals?.out_general,
+      'c_out_general_cc': st => st.meals?.out_general_cc,
+      'c_out_general_qr': st => st.meals?.out_general_qr,
+      'c_out_snack': st => st.meals?.out_snack,
+      'c_out_snack_cc': st => st.meals?.out_snack_cc,
+      'c_out_snack_qr': st => st.meals?.out_snack_qr,
+      'c_out_side': st => st.meals?.out_side,
+      'c_out_side_cc': st => st.meals?.out_side_cc,
+      'c_out_side_qr': st => st.meals?.out_side_qr,
+      'c_meal_other_txt': st => st.meals?.other_txt,
+      'c_meal_other_cc': st => st.meals?.other_cc,
+      'c_meal_other_qr': st => st.meals?.other_qr,
 
-      // 物販（4〜5行目）
-      'c_local_products': st => st.shops?.local_products,
+      // 物販（10〜12行目）
       'c_inside_shop': st => st.shops?.inside_shop,
       'c_inside_shop_cc': st => st.shops?.inside_shop_cc,
       'c_inside_shop_qr': st => st.shops?.inside_shop_qr,
       'c_outside_shop': st => st.shops?.outside_shop,
+      'c_local_products': st => st.shops?.local_products,
       'c_shop_seller': st => st.shops?.seller,
 
-      // 評価（6〜7行目）
+      // 評価（13〜15行目）
       'c_info_desk': st => st.ratings?.info_desk,
       'c_rest': st => st.ratings?.rest,
       'c_senior_kids': st => st.ratings?.senior_kids,
@@ -496,13 +546,13 @@
       'c_toilet_pos': st => st.ratings?.toilet_pos,
       'c_winter_visit': st => st.ratings?.winter_visit,
 
-      // インフラ・付属施設（7〜9行目）
+      // インフラ・付属施設（15〜18行目）
       'c_wifi': st => st.telecom?.wifi,
-      'c_hot_spring': st => st.attachments?.hot_spring_dist,
       'c_hotel': st => st.attachments?.hotel,
       'c_park': st => st.attachments?.park,
       'c_park_golf': st => st.attachments?.park_golf,
       'c_dog_run': st => st.attachments?.dog_run,
+      'c_hot_spring': st => st.attachments?.hot_spring_dist,
       'c_other': st => st.attachments?.other,
 
       // 写真エリア (1〜20 + 自由入力)
@@ -593,7 +643,7 @@
         const el = document.getElementById(elemId);
         if (!el) return;
 
-        // ★ 比較の際にも normalizeVal を通して ○ と 〇 を同じものとして扱う
+        // 比較の際にも normalizeVal を通して ○ と 〇 を同じものとして扱う
         const rawNewVal = el.value.trim();
         const rawOldVal = (fieldMap[elemId](currentStationOriginal) || '').trim();
 
@@ -637,12 +687,6 @@
       alert(`✅ ${stationName} の変更（${changes.length}件）を履歴に保存しました！`);
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      initOptions();
-      initCollectorData();
-      attachChangeListeners(); // イベントリスナーの登録
-    });
-
     // 6. 履歴出力
     function exportHistoryLog() {
       if (!checkAuth()) return;
@@ -679,7 +723,6 @@
       initCollectorData();
       attachChangeListeners();
     });
-
   </script>
 </body>
 </html>
